@@ -32,32 +32,23 @@ namespace assignment_carSales3
         private ArrayList nameList = null;
         private ArrayList phoneNumList = null;
         private ArrayList vehicleList = null;
-
-
-        //string[] nameList = { "Charlie", "", "", "", "", "", "", "", "Michael", "Scot" };
-        //int[] phoneNumList = { , , , , , , , , ,  };
-
         // insurance
         const double AGE_25_UNDER = 0.20;
         const double AGE_25_OVER = 0.10;
-
         // optional extras
         const double WINDOW_TINT = 150;
         const double DUCO_PROTECT = 180;
         const double GPS_NAV = 320;
         const double DLUX_SOUND = 350;
-
         // GST
         const double GST_RATE = 0.1;
-
         // warranty
         const double WARRANTY_TWO_YEARS = 0.05;
         const double WARRANTY_THREE_YEARS = 0.10;
         const double WARRANTY_FIVE_YEARS = 0.20;
 
 
-        // ------------- Method Declarations ---------------------
-            
+        // ------------- Method Declarations ---------------------         
         // set the contents of the name ArrayList
         private ArrayList setNameList()
         {
@@ -111,16 +102,11 @@ namespace assignment_carSales3
         private double getVehicWarranty(double vehicAmount)
         {
             double vehicCost;
-
-            //    1 year warranty has no charge.
-
-
             // when no warranty is selected - set default warranty to "1 Year no charge"
             if (warrantyComboBox.SelectedItem == null)
             {
                 warrantyComboBox.SelectedValue = "1 Year no charge";
             }
-
             // process vehiCost when a warranty is selected
             if (warrantyComboBox.SelectedValue.ToString() == "1 Year no charge")
             {
@@ -145,7 +131,6 @@ namespace assignment_carSales3
                 return vehicCost;
             }
             return 0;
-
         }
 
 
@@ -153,7 +138,6 @@ namespace assignment_carSales3
         private double getOptionalExtras(double vehicAmount)
         {
             double totalOptExtras, winTint, ducoProtect, GPSNav, DluxSound;
-
             winTint = 0;
             ducoProtect = 0;
             GPSNav = 0;
@@ -162,7 +146,6 @@ namespace assignment_carSales3
             //  Duco Protection($180), 
             //  GPS Navigational System($320), and/or
             //  Deluxe Sound System($350).
-
             if (windowCheckBox.IsChecked == true)
             {
                 winTint = WINDOW_TINT; //set window tint cost
@@ -181,7 +164,6 @@ namespace assignment_carSales3
             }
             // get the total of extras by adding them together and store them in totalOptExtras
             return totalOptExtras = winTint + ducoProtect + GPSNav + DluxSound;
-
         }
 
 
@@ -189,9 +171,7 @@ namespace assignment_carSales3
         private double getAccidentInsurance(double vehicPrice, double optnlExtras)
         {
             double accidentInsure, totalVehicPriceOptnlExtras;
-
             totalVehicPriceOptnlExtras = vehicPrice + optnlExtras;
-
             // drivers under age 25 
             if (ageUnder25RadioButton.IsChecked == true)
             {
@@ -226,14 +206,11 @@ namespace assignment_carSales3
         // display all vehicle makes
         private void displayVehicleMakes()
         {
-
             string dispVehic = "";
-
             // call set vehicle arraylist
             vehicleList = setVehicleList();
             // sort the list
             vehicleList.Sort();
-
             for (int index = 0; index < vehicleList.Count; index++)
             {
                 dispVehic = dispVehic + vehicleList[index] + "\n";
@@ -297,7 +274,6 @@ namespace assignment_carSales3
         private async void searchCarMake(ArrayList myList, int index)
         {
             myList.Sort();
-
             // when the search box is empty then prompt for a warning message and set focus back to search box
             if (searchMakeTextBox.Text == "")
             {
@@ -306,13 +282,8 @@ namespace assignment_carSales3
                 searchMakeTextBox.Focus(FocusState.Programmatic);
                 return;
             }
-            // when car is found then display a FOUND message and index from the list
-
-
-            // when car is NOT found then display a NOT FOUND message
-
-
-
+            // when car is found then display a FOUND message and index from the list            
+            // when car is NOT found then display a NOT FOUND message            
         }
 
 
@@ -351,7 +322,6 @@ namespace assignment_carSales3
         {
             /*Save button is pressed, disable the customer details text boxes,
          * and set focus to the vehicle price text box, ready for data entry.*/
-
             // check if customer name text box is empty
             if (custDetCustNameTextBox.Text == "")
             {
@@ -377,12 +347,12 @@ namespace assignment_carSales3
             custDetCustVehiPriceTextBox.Focus(FocusState.Programmatic);
         }
 
+
         // RESET Button Click
         private void ButtonReset_Click(object sender, RoutedEventArgs e)
         {
             /*the Reset button is pressed, 
          * clear all fields and return focus to the customer name field*/
-
             custDetCustNameTextBox.Text = "";
             custDetCustPhoneTextBox.Text = "";
             custDetCustVehiPriceTextBox.Text = "";
@@ -390,7 +360,6 @@ namespace assignment_carSales3
             subAmountTextBox.Text = "";
             GSTAmountTextBox.Text = "";
             finAmountTextBox.Text = "";
-
             warrantyComboBox.SelectedValue = null;
             windowCheckBox.IsChecked = false;
             ducoCheckBox.IsChecked = false;
@@ -412,7 +381,6 @@ namespace assignment_carSales3
             double vehicAmount, subAmount, gstAmount;
             double vehiclePrice, tradeInPrice, vehicWarranty, optExtras, accidentInsure;
             int initVehiclePrice = 0;
-
             // try catch vehicle price
             // input double as vehicle price
             // otherwise display error prompt
@@ -428,13 +396,11 @@ namespace assignment_carSales3
                 custDetCustVehiPriceTextBox.SelectAll();
                 return;
             }
-
             // if trade value in text box is empty set trade in value to 0
             if (custDetCustTradeInTextBox.Text == "")
             {
                 custDetCustTradeInTextBox.Text = initVehiclePrice.ToString();
             }
-
             // try catch trade in price
             // input double as trade in price
             // otherwise display error prompt
@@ -450,8 +416,6 @@ namespace assignment_carSales3
                 custDetCustTradeInTextBox.SelectAll();
                 return;
             }
-
-
             //check that vehicle price is > 0, the tradeIn price is NOT < 0 and the vehicle price is greater than tradeIn price
             if (vehiclePrice <= 0)
             {
@@ -478,40 +442,31 @@ namespace assignment_carSales3
                 return;
 
             }
-
             /*
              * Sub Amount as cost of all purchases (vehicle cost + warranty + extras + insurance - tradeIn)
              * gstAmount = subAmount*GST_RATE
              * vehicAmount = subAmount + gstAmount
              */
-
-            // process calculations
-
             // get the value for vehicle warranty
             vehicWarranty = getVehicWarranty(vehiclePrice);
             // get the value for optional extras
             optExtras = getOptionalExtras(vehiclePrice);
             // get the value for accident insurace
             accidentInsure = getAccidentInsurance(vehiclePrice, optExtras);
-
             // set age radio button to false when insurance policy is set to NO
             if (insuranceToggleSwitch.IsOn == false)
             {
                 accidentInsure = 0;
-            }
-
+            }        
             // the Sub Amount as cost of all purchases (vehicle cost + warranty + extras + insurance - tradeIn).             
             subAmount = vehiclePrice + vehicWarranty + optExtras + accidentInsure - tradeInPrice;
             subAmountTextBox.Text = subAmount.ToString("C");
-
             gstAmount = subAmount * GST_RATE;
             GSTAmountTextBox.Text = gstAmount.ToString("C");
-
             // process final amount
             // final amount = subAmount + gstAmount;
             vehicAmount = subAmount + gstAmount;
             finAmountTextBox.Text = vehicAmount.ToString("C");
-
             // display transaction summary
             summaryMsgTextBlock.Text = "**** Transaction Summary Displayed Here ****" + "\n" + "Customer Name: " + custDetCustNameTextBox.Text + "\n" + "Phone: " + custDetCustPhoneTextBox.Text +
                 "\n" + "Vehicle Price: $" + custDetCustVehiPriceTextBox.Text + "\n" + "Trade In Price: $" + custDetCustTradeInTextBox.Text + "\n" + "Vehicle Warranty: $" +
@@ -519,11 +474,11 @@ namespace assignment_carSales3
                 "Final Amount: $" + vehicAmount;
         }
 
+
         // INSURANCE Toggle Switch Toggled
         private void InsuranceToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
             ToggleSwitch toggleSwitch = sender as ToggleSwitch;
-
             // The radio buttons should be disabled when the insurance toggleSwitch is off
             if (toggleSwitch.IsOn == false)
             {
@@ -542,6 +497,7 @@ namespace assignment_carSales3
             }
         }
 
+
         // PAGE LOAD    
         // set contents of Names and Phone Number in the page load event 
         private void pageLoaded(object sender, RoutedEventArgs e)
@@ -551,19 +507,18 @@ namespace assignment_carSales3
 
         }
 
-        // display customer names
+        // DISPLAY CUSTOMER NAMES
         private void DispAllCustomerButton_Click(object sender, RoutedEventArgs e)
         {
             dispCustomers();
         }
 
 
-        // sequential search for customers names
+        // SEARCH SEQUENTIAL for customers names
         private async void SearchNameButton_Click(object sender, RoutedEventArgs e)
         {
             int index = 0;
             bool found = false;
-
             // get input from Customer name text box
             string nameToSearch = custDetCustNameTextBox.Text.ToUpper();
             // when name is empty, then prompt for error and return focus to re-enter
@@ -624,7 +579,6 @@ namespace assignment_carSales3
                 else
                     index++;
             }
-
             // when found then delete from arraylist
             if (found)
             {
@@ -646,16 +600,17 @@ namespace assignment_carSales3
                 var warningMsg = new MessageDialog(nameToDelete + " does not EXIST! ");
                 await warningMsg.ShowAsync();
                 return;
-            }
-
-            
+            }            
         }
+
+
 
         // display all vehicle makes
         private void DisplayAllMakeButton_Click(object sender, RoutedEventArgs e)
         {
             displayVehicleMakes();
         }
+
 
         // binary search vehicle make
         private async void SearchMakeButton_Click(object sender, RoutedEventArgs e)
@@ -666,16 +621,10 @@ namespace assignment_carSales3
             string searchItem;
 
             vehicleList = setVehicleList();
-            vehicleList.Sort();
-
-            
+            vehicleList.Sort();            
             // set search item to Upper
             searchItem = searchMakeTextBox.Text.ToUpper();
-           // index = getCarMakeIndex(vehicleList, searchItem);
-
-            
-
-
+           // index = getCarMakeIndex(vehicleList, searchItem);           
             // when found then display a found message and the index from the array list
             if (index > 0)
             {
@@ -691,7 +640,6 @@ namespace assignment_carSales3
                 await notFoundMessage.ShowAsync();
                 return;
             }
-
         }
 
         
