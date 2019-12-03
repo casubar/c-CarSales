@@ -1,0 +1,146 @@
+﻿<!--Charlie Asubar-->
+<!--8 November 2019-->
+<!--assignment CarSales1-->
+
+<Page
+    x:Class="assignment_carSales3.carSales"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:assignment_carSales3"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <!--set 2 col-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="230*"/>
+            <ColumnDefinition Width="230*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--SP main-->
+        <StackPanel Grid.ColumnSpan="2" Background="BurlyWood">
+            <TextBlock Name="devNameTextBlock" Text="Powered by: Asubar Technologies" TextAlignment="DetectFromContent"/>
+            <!--SP main heading-->
+            <StackPanel Orientation="Horizontal" Background="White" Height="110" Margin="20">
+                <Image Name="imageCarLogo" Source="Images/depositphotos_64667241-stock-illustration-color-cartoon-pickup.jpg" Height="90" Width="90" Margin="300,0,0,0"/>
+                <TextBlock x:Name="labelTextBlock" Text="Dodgy Brothers Motor Manager" FontSize="50" TextAlignment="Center" Margin="0,20,60,10" FontFamily="Papyrus" />
+            </StackPanel>
+
+            <!--SP for right and left col-->
+            <StackPanel Orientation="Horizontal">
+
+                <!--SP right panel-->
+                <StackPanel Background="Aqua" MinWidth="700" MinHeight="780" Margin="20">
+
+                    <!--SP customer details-->
+                    <!-- <TextBlock Name="textBlockCustDet" Text="Customer Details" FontSize="20"/>-->
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Name="custDetNameTextBlock" Text="Customer Name:" Margin="10" MinWidth="150" />
+                        <TextBox Name="custDetCustNameTextBox" PlaceholderText="Enter your name" Height="10" MinWidth="300"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Name="custDetPhoneTextBlock" Text="Customer Phone:" Margin="10" MinWidth="150" />
+                        <TextBox Name="custDetCustPhoneTextBox" PlaceholderText="Enter customer phone" Height="10" MinWidth="100"/>
+                    </StackPanel>
+
+                    <!--SP for save and reset-->
+                    <StackPanel Orientation="Horizontal">
+                        <Button Name="saveButton" Content="Save" Margin="10" Background="LightSeaGreen" Width="150" FontSize="15" BorderThickness="10" BorderBrush="White" Click="ButtonSave_Click" Foreground="White"/>
+                        <Button Name="resetButton" Content="Reset" Margin="10" Background="Red" Width="150" FontSize="15" BorderThickness="10" BorderBrush="White" Click="ButtonReset_Click" Foreground="White"/>
+                    </StackPanel>
+
+                    <!--SP Vehicle price and trade in value-->
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Name="custDetVehiPriceTextBlock" Text="Vehicle Price" Margin="10" MinWidth="150"/>
+                        <TextBox Name="custDetCustVehiPriceTextBox" PlaceholderText="Enter vehicle price" Height="10" MinWidth="100"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Name="custDetTradeInTextBlock" Text="Trade In Price" Margin="10" MinWidth="150"/>
+                        <TextBox Name="custDetCustTradeInTextBox" PlaceholderText="Enter trade in price" Height="10" MinWidth="100"/>
+                    </StackPanel>
+
+                    <!--calculate button SP -->
+                    <Button Name= "calcButton" Content="Summary" Margin="10" Background="GreenYellow" Width="150" FontSize="15" BorderThickness="10" BorderBrush="White" Click="ButtonCalc_Click"/>
+
+                    <!--calculations SP-->
+                    <!--<TextBlock Name="textBlockCalc" Text="Calculations" FontSize="20"/>-->
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Name="subAmountTextBlock" Text="Sub Amount" Margin="10" MinWidth="150"/>
+                        <TextBox Name="subAmountTextBox" MinWidth="100" Height="10"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Name="GSTAmountTextBlock" Text="GST Amount" Margin="10" MinWidth="150"/>
+                        <TextBox Name="GSTAmountTextBox"  MinWidth="100" Height="10"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Name="finAmountTextBlock" Text="Final Amount" Margin="10" MinWidth="150"/>
+                        <TextBox Name="finAmountTextBox"  MinWidth="100" Height="10"/>
+                    </StackPanel>
+
+                    <!--SP for collection date-->
+                    <StackPanel>
+                        <!--<TextBlock Name="textBlock_collectionDate" Text="Select Collection Date" FontSize="20"/>-->
+                        <DatePicker>Collection Date</DatePicker>
+                    </StackPanel>
+
+                    <!--SP for Pick up-->
+                    <StackPanel>
+                        <!--<TextBlock Name="textBlock_pickUp" Text="Pick Up Time" FontSize="20"/>-->
+                        <TimePicker>Pick Up Time</TimePicker>
+                    </StackPanel>
+
+                </StackPanel>
+
+
+                <!--SP left panel-->
+                <StackPanel Background="Aqua" MinWidth="710" MinHeight="780" Margin="20">
+                    <!--SP for vehicle warranty-->
+                    <StackPanel>
+                        <!--<TextBlock Name="textBlock_warranty" Text="Vehicle Warranty" FontSize="20"/>-->
+                        <ComboBox Name="warrantyComboBox" Header="Choose The Warranty" PlaceholderText="Pls. Select Warranty">
+                            <x:String>1 Year no charge</x:String>
+                            <x:String>2 Years at 5% of Vehicle Cost</x:String>
+                            <x:String>3 Years at 10% of Vehicle Cost</x:String>
+                            <x:String>5 Years at 20% of Vehicle Cost</x:String>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <!--SP for extras-->
+                    <StackPanel>
+                        <TextBlock Name="extrasTextBlock" Text="Optional Extras" FontSize="20"/>
+                        <CheckBox Name="windowCheckBox" Content="Window Tinting ($150)" Margin="2"/>
+                        <CheckBox Name="ducoCheckBox" Content="Duco Protection ($180)" Margin="2"/>
+                        <CheckBox Name="GPSCheckBox" Content="GPS Navigational System ($320)" Margin="2"/>
+                        <CheckBox Name="soundCheckBox" Content="Deluxe Sound System ($350)" Margin="2"/>
+                    </StackPanel>
+
+                    <!--SP for insurance-->
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Name="insuranceTextBlock" Text="Insurance Policy Included?" FontSize="20" Margin="3" MinWidth="250"/>
+                        <ToggleSwitch Name="insuranceToggleSwitch" OffContent="No" OnContent="Yes" Toggled="InsuranceToggleSwitch_Toggled" IsOn="False" />
+                    </StackPanel>
+
+                    <!--SP for age-->
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Name="ageTextBlock" Text="Select Age Range:" FontSize="20" MinWidth="170"/>
+                        <RadioButton Name="ageUnder25RadioButton" Content="Under 25"/>
+                        <RadioButton Name="age25AndOverRadioButton" Content="25 and Over"/>
+                    </StackPanel>
+
+                    <!--SP for summary message-->
+                    <StackPanel>
+                        <TextBlock Name="summaryMsgTextBlock" MinHeight="400"/>
+                    </StackPanel>
+
+
+                </StackPanel>
+
+            </StackPanel>
+
+        </StackPanel>
+
+    </Grid>
+</Page>
