@@ -24,7 +24,7 @@ namespace assignment_carSales3
     /// </summary>
     /// 
     // Charlie Asubar
-    // 18 November 2019
+    // 3 December 2019
     // Assignment CarSales Part 3
     public sealed partial class carSales : Page
     {
@@ -94,9 +94,18 @@ namespace assignment_carSales3
             vehicleName.Add("BMW");
             vehicleName.Add("Mazda");
             vehicleName.Add("Volkswagen");
-            vehicleName.Add("Mini");
+            vehicleName.Add("Mini");            
             return vehicleName;
         }
+
+        // get vehicle list
+        private ArrayList getVehicleList(ArrayList carList)
+        {
+            carList = setVehicleList();
+            
+            return carList;
+        }
+
 
         // get vehicle warranty        
         private double getVehicWarranty(double vehicAmount)
@@ -204,109 +213,40 @@ namespace assignment_carSales3
         }
 
         // display all vehicle makes
-        private void displayVehicleMakes()
+        private void displayVehicleMakes(ArrayList listVehicle)
         {
             string dispVehic = "";
             // call set vehicle arraylist
-            vehicleList = setVehicleList();
+                //vehicleList = setVehicleList();
             // sort the list
-            vehicleList.Sort();
-            for (int index = 0; index < vehicleList.Count; index++)
+            listVehicle.Sort();
+            for (int index = 0; index < listVehicle.Count; index++)
             {
-                dispVehic = dispVehic + vehicleList[index] + "\n";
+                dispVehic = dispVehic + listVehicle[index] + "\n";
             }
             summaryMsgTextBlock.Text = "Vehicle List: \n" + dispVehic;
         }
 
 
-        // binary search
-        // search for the position of an element in the array
-
-        //private int getCarMakeIndex(ArrayList myList, string itemToSearch)
-        //{
-        //    int searchItem, convertedMyList, temp;
-        //    myList.Sort();
-
-        //    int min = 0;
-        //    int max = myList.Count - 1;
-        //    int mid;
-
-        //    // convert itemToSearch to int
-        //    searchItem = int.Parse(itemToSearch);
-        //    // convert array to int
-        //    temp = myList[mid];
-        //    convertedMyList = int.Parse(temp);
-
-        //    do
-        //    {
-        //        mid = (min + max) / 2;
-
-
-        //        if (myList[mid] == itemToSearch)
-        //            return mid;
-        //        if (string.Compare(myList[mid], itemToSearch), true)
-        //    } while (min <= max);
-
-
-            // set toUpper search item
-            // searchItem = searchMakeTextBox.Text.ToUpper();
-
-
-
-        //    // get index of item to search
-        //    int index = myList.BinarySearch(itemToSearch);
-            
-
-        //    // when car is found then display a FOUND message and index from the list
-        //    if (index > 0)
-        //    {                
-        //        return index;
-        //    }
-        //    // when car is NOT found then display a NOT FOUND message
-        //    else
-        //    {                
-        //        return index;
-        //    }
-            
-        //}
-
-        // get the index of the car make from car list array
-        private async void searchCarMake(ArrayList myList, int index)
+        // binary search for vehicle make
+        private int binarySearchVehicle(ArrayList myList, string itemToSearch)
         {
-            myList.Sort();
-            // when the search box is empty then prompt for a warning message and set focus back to search box
-            if (searchMakeTextBox.Text == "")
+            int min = 0;
+            int max = myList.Count - 1;
+            int mid;
+            do
             {
-                var warningMsg = new MessageDialog("Search box is blank! ");
-                await warningMsg.ShowAsync();
-                searchMakeTextBox.Focus(FocusState.Programmatic);
-                return;
-            }
-            // when car is found then display a FOUND message and index from the list            
-            // when car is NOT found then display a NOT FOUND message            
+                mid = (min + max) / 2;
+                if (myList[mid].ToString().ToUpper() == itemToSearch.ToUpper())
+                    return mid;
+                //if (itemToSearch.ToUpper() > myList[mid].ToString().ToUpper())
+                if (itemToSearch.CompareTo(myList[mid].ToString().ToUpper()) > 0)
+                    min = mid + 1;
+                else
+                    max = mid - 1;
+            } while (min <= max);
+            return -1;
         }
-
-
-        //private int searchPosInArray(ArrayList listData, string itemToSearch)
-        //{
-        //    int min, max, mid;
-
-        //    min = 0;
-        //    max = listData.Count - 1;
-
-        //    do
-        //    {
-        //        mid = (min + max) / 2;
-        //        if (listData[mid] == itemToSearch) // when item is found then return the index mid
-        //            return mid;
-
-        //        if (itemToSearch > listData[mid].ToString()) // check if the item is in the top half of the search list
-        //            min = mid + 1;
-        //        else
-        //            max = mid - 1;
-        //    } while (min <= max);
-        //}
-
 
 
 
@@ -504,6 +444,7 @@ namespace assignment_carSales3
         {
             nameList = setNameList();
             phoneNumList = setPhoneNumList();
+            vehicleList = setVehicleList();
 
         }
 
@@ -553,7 +494,7 @@ namespace assignment_carSales3
             }
         }
 
-        // DELETE BUTTON
+        // DELETE NAME BUTTON
         // delete a name in the customer ArrayList
         private async void DeleteNameButton_Click(object sender, RoutedEventArgs e)
         {
@@ -605,44 +546,85 @@ namespace assignment_carSales3
 
 
 
-        // display all vehicle makes
+        // DISPLAY ALL VEHICLE makes
         private void DisplayAllMakeButton_Click(object sender, RoutedEventArgs e)
         {
-            displayVehicleMakes();
+            displayVehicleMakes(vehicleList);
         }
 
 
-        // binary search vehicle make
+        // SEARCH BINARY vehicle make
         private async void SearchMakeButton_Click(object sender, RoutedEventArgs e)
         {
             // need item to string search
             // need arraylist
-            int index = 0;
-            string searchItem;
-
-            vehicleList = setVehicleList();
-            vehicleList.Sort();            
+            int foundPos = 0;
+            string searchItem;           
             // set search item to Upper
             searchItem = searchMakeTextBox.Text.ToUpper();
-           // index = getCarMakeIndex(vehicleList, searchItem);           
+            vehicleList = setVehicleList();
+            vehicleList.Sort(); // make sure list is sorted
+            // call the binarySearch()
+            foundPos = binarySearchVehicle(vehicleList, searchItem);
             // when found then display a found message and the index from the array list
-            if (index > 0)
+            if (foundPos == -1) // not found
             {
-                // set index + 1
-                index = index + 1;
-                var foundMessage = new MessageDialog("Car FOUND at " + index);
-                await foundMessage.ShowAsync();
-                return;
+                var notFoundMessage = new MessageDialog(searchItem + " Car Not Found");
+                await notFoundMessage.ShowAsync();
+                return;                
             }
             else
             {
-                var notFoundMessage = new MessageDialog("Car Not Found");
-                await notFoundMessage.ShowAsync();
+                foundPos = foundPos + 1;
+                var foundMessage = new MessageDialog("Car FOUND at index " + foundPos);
+                await foundMessage.ShowAsync();
                 return;
             }
         }
 
-        
+       
 
+        // INSERT VEHICLE make
+        private async void InsertMakeButton_Click(object sender, RoutedEventArgs e)
+        {
+            int pos = 0;
+            bool found = false;
+            string itemToSearch = insertMakeTextBox.Text.ToUpper();
+            //int carCount = 0;
+                //vehicleList = setVehicleList();
+                //vehicleList = getVehicleList(vehicleList);
+                // carCount = vehicleList.Count;
+              
+            // when search box is empty then prompt for a warning and reset focus for re-entry
+            if (insertMakeTextBox.Text == "")
+            {
+                var msgWarning = new MessageDialog("Pls. enter item to search! ");
+                await msgWarning.ShowAsync();
+                insertMakeTextBox.Focus(FocusState.Programmatic);
+                return;
+            }
+            // do sequential search
+            while (!found && pos < vehicleList.Count)
+            {
+                if (itemToSearch == vehicleList[pos].ToString().ToUpper())
+                    found = true;
+                else
+                    pos++;
+            }
+            // when car is already in the list then don't add in the list and prompt warning msg
+            if (pos < vehicleList.Count)
+            {
+                var warningMsg = new MessageDialog(itemToSearch + " Car already exist");
+                await warningMsg.ShowAsync();
+            }
+            else
+            {
+                //ArrayList phoneNumValue = new ArrayList();
+                //phoneNumValue.Add(421368501);
+                vehicleList.Add(itemToSearch);
+                displayVehicleMakes(vehicleList);
+            }
+
+        }
     }
 }

@@ -50,7 +50,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Button Name="saveButton" Content="Save" Margin="10" Background="Brown" Width="70" FontSize="12" BorderThickness="3" BorderBrush="Yellow" Click="ButtonSave_Click" Foreground="White"/>
                         <Button Name="resetButton" Content="Reset" Margin="10" Background="Brown" Width="90" FontSize="12" BorderThickness="3" BorderBrush="Yellow" Click="ButtonReset_Click" Foreground="White"/>
-                        <Button Name="searchNameButton" Content="Search Name" Margin="10" Background="Brown" Width="90" FontSize="12" BorderThickness="2" BorderBrush="Yellow" Foreground="White" Click="SearchNameButton_Click"/>
+                        <Button x:Name="searchNameButton" Content="Search Name" Margin="10" Background="Brown" Width="90" FontSize="12" BorderThickness="2" BorderBrush="Yellow" Foreground="White" Click="SearchNameButton_Click"/>
                         <Button Name="deleteNameButton" Content="Delete Name" Margin="10" Background="Brown" Width="90" FontSize="12" BorderThickness="2" BorderBrush="Yellow" Foreground="White" Click="DeleteNameButton_Click"/>
                         <Button Name="dispAllCustomerButton" Content="Display All Customers" Margin="10" Background="Brown" Width="140" FontSize="12" BorderThickness="3" BorderBrush="Yellow" Foreground="White" Click="DispAllCustomerButton_Click"/>
                     </StackPanel>
@@ -109,7 +109,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Button Name="searchMakeButton" Content="Search Make" Margin="10" Background="Brown" Width="90" FontSize="12" BorderThickness="2" BorderBrush="Yellow" Foreground="White" Click="SearchMakeButton_Click"/>
                         <TextBox Name="searchMakeTextBox" Margin="10" MinWidth="150"/>
-                        <Button Name="insertMakeButton" Content="Insert Make" Margin="10" Background="Brown" Width="90" FontSize="12" BorderThickness="2" BorderBrush="Yellow" Foreground="White"/>
+                        <Button Name="insertMakeButton" Content="Insert Make" Margin="10" Background="Brown" Width="90" FontSize="12" BorderThickness="2" BorderBrush="Yellow" Foreground="White" Click="InsertMakeButton_Click"/>
                         <TextBox Name="insertMakeTextBox" Margin="10" MinWidth="150"/>
                     </StackPanel>
                     
