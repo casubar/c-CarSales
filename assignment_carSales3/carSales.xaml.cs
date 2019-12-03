@@ -123,7 +123,12 @@ namespace assignment_carSales3
         private double getAccidentInsurance(double vehicPrice, double optnlExtras)
         {
             double accidentInsure, totalVehicPriceOptnlExtras;
-            totalVehicPriceOptnlExtras = vehicPrice + optnlExtras;            
+            totalVehicPriceOptnlExtras = vehicPrice + optnlExtras;
+            // if toggle switch is off          
+            if (insuranceToggleSwitch.IsOn == false)
+            {
+                return 0;
+            }
             // drivers under age 25 
             if (ageUnder25RadioButton.IsChecked == true)
             {
@@ -137,9 +142,8 @@ namespace assignment_carSales3
                 // calculate insurance by getting the total of (0.10 * totalVehicPriceOptnlExtras) + totalVehicPriceOptnlExtras
                 accidentInsure = totalVehicPriceOptnlExtras + (totalVehicPriceOptnlExtras * AGE_25_OVER);
                 return accidentInsure;
-            }
-            // if toggle switch is off          
-            return 0;            
+            }          
+            return -1;
         }
 
         // --------- End Method Declarations -----------------
