@@ -24,7 +24,7 @@ namespace assignment_carSales3
     /// </summary>
     /// 
     // Charlie Asubar
-    // 3 December 2019
+    // 4 December 2019
     // Assignment CarSales Part 3
     public sealed partial class carSales : Page
     {
@@ -96,14 +96,6 @@ namespace assignment_carSales3
             vehicleName.Add("Volkswagen");
             vehicleName.Add("Mini");            
             return vehicleName;
-        }
-
-        // get vehicle list
-        private ArrayList getVehicleList(ArrayList carList)
-        {
-            carList = setVehicleList();
-            
-            return carList;
         }
 
 
@@ -204,7 +196,6 @@ namespace assignment_carSales3
         private void dispCustomers()
         {
             string dispCustomer = "";
-
             for (int index = 0; index < nameList.Count; index++)
             {
                 dispCustomer = dispCustomer + nameList[index] + " - " + phoneNumList[index] + "\n";
@@ -215,9 +206,7 @@ namespace assignment_carSales3
         // display all vehicle makes
         private void displayVehicleMakes(ArrayList listVehicle)
         {
-            string dispVehic = "";
-            // call set vehicle arraylist
-                //vehicleList = setVehicleList();
+            string dispVehic = "";          
             // sort the list
             listVehicle.Sort();
             for (int index = 0; index < listVehicle.Count; index++)
@@ -237,19 +226,19 @@ namespace assignment_carSales3
             do
             {
                 mid = (min + max) / 2;
+                // when itemToSearch is found then return the index where it was found i.e. [mid]
                 if (myList[mid].ToString().ToUpper() == itemToSearch.ToUpper())
                     return mid;
-                //if (itemToSearch.ToUpper() > myList[mid].ToString().ToUpper())
+                // check if itemToSearch is above the list
                 if (itemToSearch.CompareTo(myList[mid].ToString().ToUpper()) > 0)
-                    min = mid + 1;
+                    min = mid + 1; // set min = mid + 1
+                // otherwise itemToSearch is below the list
                 else
-                    max = mid - 1;
+                    max = mid - 1; // set max = mid - 1
             } while (min <= max);
-            return -1;
+            return -1; // return - 1 when itemToSearch is not found
         }
-
-
-
+        
         // --------- End Method Declarations -----------------
 
         public carSales()
@@ -439,13 +428,12 @@ namespace assignment_carSales3
 
 
         // PAGE LOAD    
-        // set contents of Names and Phone Number in the page load event 
+        // set contents of Names and Phone Number and vehicle list in the page load event 
         private void pageLoaded(object sender, RoutedEventArgs e)
         {
             nameList = setNameList();
             phoneNumList = setPhoneNumList();
             vehicleList = setVehicleList();
-
         }
 
         // DISPLAY CUSTOMER NAMES
@@ -473,6 +461,7 @@ namespace assignment_carSales3
             // process sequential search
             while (!found && index < nameList.Count)
             {
+                // when nameToSearch is located then set found = true
                 if (nameToSearch == nameList[index].ToString().ToUpper())
                 {
                     found = true;
@@ -482,12 +471,12 @@ namespace assignment_carSales3
                     index++;
                 }
             }
-            if (found)
+            if (found) // when nameToSearch is found then display name and phone number in nameTextBox and phoneTextBox
             {
                 custDetCustNameTextBox.Text = nameList[index].ToString();
                 custDetCustPhoneTextBox.Text = phoneNumList[index].ToString();
             }
-            else
+            else // when nameToSearch is not found then prompt message not found 
             {
                 var errorMsg = new MessageDialog("No Record of name " + nameToSearch + " is found!");
                 await errorMsg.ShowAsync();
@@ -515,6 +504,7 @@ namespace assignment_carSales3
             // process sequential search
             while (!found && index < nameList.Count)
             {
+                // when nameToDelete is located then set found = true
                 if (nameToDelete == nameList[index].ToString().ToUpper())
                     found = true;
                 else
@@ -536,7 +526,7 @@ namespace assignment_carSales3
                 await deleteSuccessMsg.ShowAsync();
                 return;
             }
-            else
+            else // when nameToDelete is not found then prompt name not found
             {
                 var warningMsg = new MessageDialog(nameToDelete + " does not EXIST! ");
                 await warningMsg.ShowAsync();
@@ -555,25 +545,29 @@ namespace assignment_carSales3
 
         // SEARCH BINARY vehicle make
         private async void SearchMakeButton_Click(object sender, RoutedEventArgs e)
-        {
-            // need item to string search
-            // need arraylist
+        {           
             int foundPos = 0;
-            string searchItem;           
-            // set search item to Upper
-            searchItem = searchMakeTextBox.Text.ToUpper();
-            vehicleList = setVehicleList();
+            string searchItem;    
+            // when searchbox is empty then promt empty search box
+            if (searchMakeTextBox.Text == "")
+            {
+                var warningMsg = new MessageDialog("Pls. enter item to search");
+                await warningMsg.ShowAsync();
+                return;
+            }
+            // set search item to Upper case
+            searchItem = searchMakeTextBox.Text.ToUpper();          
             vehicleList.Sort(); // make sure list is sorted
             // call the binarySearch()
             foundPos = binarySearchVehicle(vehicleList, searchItem);
             // when found then display a found message and the index from the array list
-            if (foundPos == -1) // not found
+            if (foundPos == -1) // when not found then prompt not found message
             {
                 var notFoundMessage = new MessageDialog(searchItem + " Car Not Found");
                 await notFoundMessage.ShowAsync();
                 return;                
             }
-            else
+            else // when found then display message found and the index location from the list
             {
                 foundPos = foundPos + 1;
                 var foundMessage = new MessageDialog("Car FOUND at index " + foundPos);
@@ -589,12 +583,7 @@ namespace assignment_carSales3
         {
             int pos = 0;
             bool found = false;
-            string itemToSearch = insertMakeTextBox.Text.ToUpper();
-            //int carCount = 0;
-                //vehicleList = setVehicleList();
-                //vehicleList = getVehicleList(vehicleList);
-                // carCount = vehicleList.Count;
-              
+            string itemToSearch = insertMakeTextBox.Text.ToUpper();  
             // when search box is empty then prompt for a warning and reset focus for re-entry
             if (insertMakeTextBox.Text == "")
             {
@@ -604,12 +593,12 @@ namespace assignment_carSales3
                 return;
             }
             // do sequential search
-            while (!found && pos < vehicleList.Count)
+            while (!found && pos < vehicleList.Count) //while not found and not end of array 
             {
-                if (itemToSearch == vehicleList[pos].ToString().ToUpper())
+                if (itemToSearch == vehicleList[pos].ToString().ToUpper()) // check if the name is found
                     found = true;
                 else
-                    pos++;
+                    pos++; // if no match move to next element in array
             }
             // when car is already in the list then don't add in the list and prompt warning msg
             if (pos < vehicleList.Count)
@@ -617,12 +606,12 @@ namespace assignment_carSales3
                 var warningMsg = new MessageDialog(itemToSearch + " Car already exist");
                 await warningMsg.ShowAsync();
             }
-            else
-            {
-                //ArrayList phoneNumValue = new ArrayList();
-                //phoneNumValue.Add(421368501);
-                vehicleList.Add(itemToSearch);
-                displayVehicleMakes(vehicleList);
+            else // when car is not in the list then insert the car in the list and prompt insert success
+            {                
+                vehicleList.Add(itemToSearch); // add car make to the list
+                displayVehicleMakes(vehicleList); // display full car make list
+                var insertMsgSuccess = new MessageDialog(itemToSearch + " added to the list!");
+                await insertMsgSuccess.ShowAsync();
             }
 
         }
