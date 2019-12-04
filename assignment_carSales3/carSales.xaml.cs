@@ -333,7 +333,9 @@ namespace assignment_carSales3
             
             // The radio buttons should be disabled when the insurance toggleSwitch is off
             if (toggleSwitch.IsOn == false)
-            {                                
+            {
+                ageUnder25RadioButton.IsChecked = false;
+                age25AndOverRadioButton.IsChecked = false;
                 age25AndOverRadioButton.IsEnabled = false;
                 ageUnder25RadioButton.IsEnabled = false;
                 //insuranceToggleSwitch.Visibility = Visibility.Visible;
