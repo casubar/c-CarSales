@@ -219,56 +219,24 @@ namespace assignment_carSales3
         }
 
 
-        // binary search
-        // search for the position of an element in the array
-
-        //private int getCarMakeIndex(ArrayList myList, string itemToSearch)
-        //{
-        //    int searchItem, convertedMyList, temp;
-        //    myList.Sort();
-
-        //    int min = 0;
-        //    int max = myList.Count - 1;
-        //    int mid;
-
-        //    // convert itemToSearch to int
-        //    searchItem = int.Parse(itemToSearch);
-        //    // convert array to int
-        //    temp = myList[mid];
-        //    convertedMyList = int.Parse(temp);
-
-        //    do
-        //    {
-        //        mid = (min + max) / 2;
+        // binary search for vehicle make
+        private int binarySearchVehicle(ArrayList myList, string itemToSearch)
+        {
+            int min = 0;
+            int max = myList.Count - 1;
+            int mid;
+            do
+            {
+                mid = (min + max) / 2;
+                if (myList[mid].ToString().ToUpper() == itemToSearch.ToUpper())
+                    return mid;
+                if (itemToSearch.ToUpper() > myList[mid].ToString().ToUpper())
 
 
-        //        if (myList[mid] == itemToSearch)
-        //            return mid;
-        //        if (string.Compare(myList[mid], itemToSearch), true)
-        //    } while (min <= max);
+            } while (min <= max);
 
-
-            // set toUpper search item
-            // searchItem = searchMakeTextBox.Text.ToUpper();
-
-
-
-        //    // get index of item to search
-        //    int index = myList.BinarySearch(itemToSearch);
-            
-
-        //    // when car is found then display a FOUND message and index from the list
-        //    if (index > 0)
-        //    {                
-        //        return index;
-        //    }
-        //    // when car is NOT found then display a NOT FOUND message
-        //    else
-        //    {                
-        //        return index;
-        //    }
-            
-        //}
+        }
+        
 
         // get the index of the car make from car list array
         private async void searchCarMake(ArrayList myList, int index)
@@ -553,7 +521,7 @@ namespace assignment_carSales3
             }
         }
 
-        // DELETE BUTTON
+        // DELETE NAME BUTTON
         // delete a name in the customer ArrayList
         private async void DeleteNameButton_Click(object sender, RoutedEventArgs e)
         {
@@ -605,14 +573,14 @@ namespace assignment_carSales3
 
 
 
-        // display all vehicle makes
+        // DISPLAY ALL VEHICLE makes
         private void DisplayAllMakeButton_Click(object sender, RoutedEventArgs e)
         {
             displayVehicleMakes();
         }
 
 
-        // binary search vehicle make
+        // SEARCH BINARY vehicle make
         private async void SearchMakeButton_Click(object sender, RoutedEventArgs e)
         {
             // need item to string search
